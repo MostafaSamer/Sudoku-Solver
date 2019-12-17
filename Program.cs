@@ -1,0 +1,205 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Diagnostics;
+
+namespace OS2_Project {
+    class Program {
+
+        public static int[,] array;
+
+        static void Main(string[] args) {
+            array = getTheArray();
+            /*int[] temp = findEmpty();
+            Console.WriteLine(temp[0]);
+            Console.WriteLine(temp[1]);*/
+
+
+            //int[] temp = {0, 4};
+            //Console.WriteLine(isValid(temp, 6));
+
+            //int[] temp1 = {0, 4};
+            //Console.WriteLine(isValid(temp1, 4));
+
+            var s1 = Stopwatch.StartNew();
+            solve();
+            s1.Stop();
+
+            var s2 = Stopwatch.StartNew();
+            Parallel.For (0, 1, (int x)=> {
+                solve();
+            });
+            s2.Stop();
+
+            for (int x = 0; x < 9; x++) {
+                for (int j = 0; j < 9; j++) {
+                    Console.Write(array[x, j]);
+                }
+                Console.WriteLine("");
+            }
+
+
+            Console.WriteLine("Sequential time: " + ((double)(s1.Elapsed.TotalMilliseconds * 1000000) /
+                100000).ToString("0.00 ns"));
+
+            Console.WriteLine("Parallel time: " + ((double)(s2.Elapsed.TotalMilliseconds * 1000000) /
+                100000).ToString("0.00 ns"));
+
+
+        }
+
+        public static int[,] getTheArray() {
+            String f_path = @"test.txt";
+            string[] lines = File.ReadAllLines(f_path);
+            /*foreach (string line in lines) {
+                Console.WriteLine(line);
+            }*/
+            int[,] input = new int[9 ,9];
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (lines[i][j] == '*') {
+                        input[i, j] = 0;
+                    }
+                    else {
+                        input[i, j] = (int)Char.GetNumericValue(lines[i][j]);
+                    }
+                }
+            }
+            /*for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    Console.Write(input[i, j]);
+                }
+                Console.WriteLine("");
+            }*/
+            return input;
+        }
+
+
+        public static int [] findEmpty() {
+
+            for (int i = 0; i<9; i++) {
+                for (int j = 0; j<9; j++) {
+                    if (array[i, j] == 0) {
+                        int[] temp = {i, j};
+                        return temp;
+                    }
+                }
+            }
+            int[] temp1 = {-1, -1};
+            return temp1;
+        }
+
+        public static bool isValid(int[] pos, int num) {
+            // CHECK ROW
+            for (int i = 0; i<9; i++) {
+                if (array[pos[0], i] == num && pos[1] != i) {
+                    //Console.WriteLine("ddd");
+                    return false;
+                }
+            }
+
+            // CHECK COL
+            for (int i = 0; i<9; i++) {
+                if (array[i, pos[1]] == num && pos[0] != i) {
+                    //Console.WriteLine("sss");
+                    return false;
+                }
+            }
+
+            // CHECK SEQ
+            int box_x = pos[0] / 3;
+            int box_y = pos[1] / 3;
+
+            //Console.WriteLine("X: " + box_x);
+            //Console.WriteLine("Y: " + box_y);
+
+            for (int i = box_x*3; i<(box_x*3)+3; i++) {
+                for (int j = box_y*3; j<(box_y*3)+3; j++) {
+                    //Console.WriteLine(array[i, j]);
+                    if (array[i, j] == num && i != pos[0] && j != pos[1]) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        }
+
+        public static bool solve() {
+            //Console.WriteLine("ss");
+            int[] temp = findEmpty();
+            //Console.WriteLine(temp[0] + "   " + temp[1]);
+            if (temp[0] == -1 && temp[1] == -1) {
+                return true;
+            }
+            for (int i = 1; i<10; i++) {
+                if (isValid(temp, i)) {
+                    //Console.WriteLine(i);
+                    //Console.WriteLine(array[temp[0], temp[1]]);
+                    array[temp[0], temp[1]] = i;
+                    //Console.WriteLine("JHDFUIED" + array[temp[0], temp[1]]);
+                    /*for (int x = 0; x < 9; x++) {
+                        for (int j = 0; j < 9; j++) {
+                            Console.Write(array[x, j]);
+                        }
+                        Console.WriteLine("");
+                    }*/
+                    if (solve()) {
+                        return true;
+
+                    }
+                    array[temp[0], temp[1]] = 0;
+                }
+            }
+            return false;
+        }
+
+    }
+
+}
+
+
+// NO SOLVE
+// DOWN RIGHT
+
+
+
+
+/*
+**27*61**
+*****1***
+4*******5
+19*****58
+*********
+73*****91
+2*******6
+***1*3***
+**74*58**
+*/
+
+/*
+1**69***7
+6****79**
+*7****43*
+**7**9***
+***4*8***
+***2**6**
+*36****8*
+**19****3
+4***21**9
+*/
+
+/*
+****5**2*
+*6**2****
+*1*******
+6******5*
+***7*3***
+***1*****
+4**3**7**
+5*****1**
+2*8******
+*/

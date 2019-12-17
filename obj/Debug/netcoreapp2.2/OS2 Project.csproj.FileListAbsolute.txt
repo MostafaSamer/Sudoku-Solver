@@ -1,0 +1,11 @@
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/bin/Debug/netcoreapp2.2/OS2 Project.deps.json
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/bin/Debug/netcoreapp2.2/OS2 Project.runtimeconfig.json
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/bin/Debug/netcoreapp2.2/OS2 Project.runtimeconfig.dev.json
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/bin/Debug/netcoreapp2.2/OS2 Project.dll
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/bin/Debug/netcoreapp2.2/OS2 Project.pdb
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/obj/Debug/netcoreapp2.2/OS2 Project.csprojAssemblyReference.cache
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/obj/Debug/netcoreapp2.2/OS2 Project.csproj.CoreCompileInputs.cache
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/obj/Debug/netcoreapp2.2/OS2 Project.AssemblyInfoInputs.cache
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/obj/Debug/netcoreapp2.2/OS2 Project.AssemblyInfo.cs
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/obj/Debug/netcoreapp2.2/OS2 Project.dll
+/home/mostafa/Documents/Projects/Dotnet/OS2 Project/obj/Debug/netcoreapp2.2/OS2 Project.pdb
